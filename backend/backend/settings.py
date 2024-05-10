@@ -25,7 +25,7 @@ SECRET_KEY = 'l4y@!^rox=b*!x-qd9xa*nt%r$$zcp!p_d&1gh@b99s-#iqsj&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,13 +77,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todo',
+        'USER': 'postgres',
+        'PASSWORD': '|81!U5StCK+7HS#-*JC)T!O8qNb<',
+        'HOST': 'redorangedevenvdb.cbsk0i4uuz5m.eu-west-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -123,8 +127,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+FRONTEND_IP = os.getenv('FRONTEND_IP')
 
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = (
-     'localhost:3000/'
- )
+CORS_ORIGIN_WHITELIST = [
+    '*',
+    'http://127.0.0.1:3000',
+     'http://127.0.0.1:8000',   
+    'http://frontend.RedOrangeFrontEndDev.app:3000', 
+     'http://BackEndDev.RedOrangeBackEndDev.app:8000',
+    'http://localhost:8000',
+
+       # DNS name for dev
+]
+
